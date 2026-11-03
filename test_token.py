@@ -92,12 +92,24 @@ def main():
             "ReadTimeout: превышено время ожидания данных от сервера.",
             flush=True,
         )
-
     except httpx.RequestError as error:
         print(
             f"Ошибка сетевого запроса: {type(error).__name__}",
             flush=True,
         )
+        print(f"Подробности: {error}", flush=True)
+
+        cause = error.__cause__
+        level = 1
+
+        while cause is not None and level <= 5:
+            print(
+                f"Причина {level}: "
+                f"{type(cause).__name__}: {cause}",
+                flush=True,
+            )
+            cause = cause.__cause__
+            level += 1
 
     finally:
         elapsed = time.monotonic() - started
