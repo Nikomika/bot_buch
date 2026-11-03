@@ -1,3 +1,5 @@
-aiogram>=3,<4
+aiogram
 httpx
 python-dotenv
+APScheduler
+tzdata
